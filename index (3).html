@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <title>Wall Street Punk: The Store Is the Message</title>
+  <meta name="description" content="A manifesto on the architecture of online commerce.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #000000;
+      --ink: #E7E3D9;
+      --ink-dim: #938E83;
+      --ink-faint: rgba(231, 227, 217, 0.14);
+      --gilt: #AE9763;
+      --display: 'Cormorant', 'Cormorant Garamond', Georgia, serif;
+      --text: 'EB Garamond', Garamond, 'Times New Roman', Georgia, serif;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    html {
+      background: var(--bg);
+      scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 84px);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--text);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.6;
+      font-kerning: normal;
+      font-variant-ligatures: common-ligatures;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      padding: 0 22px;
+    }
+
+    ::selection { background: var(--gilt); color: #000; }
+
+    /* ---------- Frontispiece ---------- */
+
+    .frontispiece {
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 10vh 0 5vh;
+    }
+
+    .front-core { margin: auto 0; }
+
+    .imprint {
+      font-family: var(--text);
+      font-size: 0.72em;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      margin-bottom: 2.6em;
+      padding-left: 0.32em;
+    }
+
+    .title {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(42px, 10.5vw, 88px);
+      line-height: 1.02;
+      letter-spacing: -0.005em;
+    }
+
+    .genre {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: clamp(21px, 3.2vw, 28px);
+      color: var(--ink-dim);
+      margin-top: 0.7em;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 2.4em auto;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      width: 44px;
+      height: 1px;
+      background: var(--ink-dim);
+      opacity: 0.6;
+    }
+
+    .ornament i {
+      width: 6px;
+      height: 6px;
+      background: var(--gilt);
+      transform: rotate(45deg);
+    }
+
+    .extent {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: clamp(18px, 2.4vw, 21px);
+      color: var(--ink-dim);
+      line-height: 1.5;
+    }
+
+    .incipit {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 7vh;
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--ink-dim);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .incipit:hover, .incipit:focus-visible { color: var(--ink); }
+
+    .incipit .stem {
+      width: 1px;
+      height: 52px;
+      background: var(--gilt);
+      transform-origin: top;
+    }
+
+    /* opening sequence */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { animation: rise 1.4s cubic-bezier(.2,.6,.2,1) both; }
+      .r1 { animation-delay: 0.15s; }
+      .r2 { animation-delay: 0.55s; }
+      .r3 { animation-delay: 1.0s; }
+      .r4 { animation-delay: 1.35s; }
+      .r5 { animation-delay: 1.9s; }
+      .incipit .stem { animation: draw 3.2s ease-in-out 2.6s infinite; }
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    @keyframes draw {
+      0%   { transform: scaleY(0); opacity: 1; }
+      45%  { transform: scaleY(1); opacity: 1; }
+      80%  { transform: scaleY(1); opacity: 0; }
+      100% { transform: scaleY(0); opacity: 0; }
+    }
+
+    /* ---------- Running head ---------- */
+
+    .running {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 22px 22px;
+      background: linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0) 100%);
+      text-align: center;
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.2;
+      color: var(--ink-dim);
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .running.on { opacity: 1; transform: none; }
+
+    .rh-num {
+      font-style: normal;
+      font-weight: 500;
+      color: var(--gilt);
+      margin-right: 0.55em;
+    }
+
+    .running.no-num .rh-num { display: none; }
+
+    .rh-rule {
+      width: 88px;
+      height: 1px;
+      margin: 9px auto 0;
+      background: var(--ink-faint);
+      overflow: hidden;
+    }
+
+    .rh-bar {
+      height: 100%;
+      background: var(--gilt);
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    /* ---------- Text column ---------- */
+
+    .text {
+      max-width: 31em;
+      margin: 0 auto;
+      padding: 12vh 0 0;
+    }
+
+    .text p { margin: 0; }
+    .text p + p { text-indent: 1.4em; }
+
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-decoration-color: rgba(231, 227, 217, 0.34);
+      text-underline-offset: 0.2em;
+      transition: text-decoration-color 0.2s ease;
+    }
+
+    a:hover, a:focus { text-decoration-color: var(--ink); }
+    a:focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+
+    /* drop cap and lead-in */
+    .opening::first-letter {
+      float: left;
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 6.4em;
+      line-height: 0.8;
+      margin: 0.06em 0.08em -0.06em 0;
+      color: var(--gilt);
+    }
+
+    @supports (initial-letter: 3) or (-webkit-initial-letter: 3) {
+      .opening::first-letter {
+        float: none;
+        font-size: 1em;
+        line-height: inherit;
+        margin: 0 0.1em 0 0;
+        -webkit-initial-letter: 3;
+        initial-letter: 3;
+      }
+    }
+
+    .lead {
+      text-transform: uppercase;
+      font-size: 0.8em;
+      letter-spacing: 0.08em;
+    }
+
+    /* parts and marginal glosses */
+    .part { margin-top: 2.4em; position: relative; }
+
+    .gloss {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6em;
+      margin-bottom: 0.7em;
+      font-weight: 400;
+      font-size: 1em;
+    }
+
+    .g-num {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1.3em;
+      color: var(--gilt);
+      line-height: 1;
+    }
+
+    .g-title {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 0.95em;
+      color: var(--ink-dim);
+    }
+
+    /* coda */
+    .coda { margin-top: 3.2em; }
+    .coda .ornament { margin: 0 auto 2.6em; }
+
+    .stanza {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 1.12em;
+      line-height: 1.5;
+      text-align: center;
+      margin: 1.6em 0 !important;
+      text-indent: 0 !important;
+    }
+
+    .stanza span { display: block; }
+
+    .noindent { text-indent: 0 !important; }
+
+    .signature {
+      text-align: center;
+      margin-top: 2.8em !important;
+      text-indent: 0 !important;
+    }
+
+    .signature .name {
+      display: block;
+      font-size: 0.8em;
+      font-weight: 500;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      padding-left: 0.32em;
+      margin-bottom: 0.9em;
+    }
+
+    .signature .admission {
+      display: block;
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 1.1em;
+      line-height: 1.45;
+      color: var(--ink-dim);
+    }
+
+    .explicit {
+      text-align: center;
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 0.9em;
+      color: var(--ink-dim);
+      margin-top: 2.6em !important;
+      text-indent: 0 !important;
+    }
+
+    /* ---------- Sources ---------- */
+
+    .sources {
+      max-width: 31em;
+      margin: 5em auto 0;
+      padding: 2.4em 0 7em;
+      border-top: 1px solid var(--ink-faint);
+      color: var(--ink-dim);
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    .sources h2 {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.25em;
+      color: var(--ink);
+      margin-bottom: 0.5em;
+    }
+
+    .sources .preamble {
+      font-size: 0.85em;
+      font-style: italic;
+      margin-bottom: 1.8em;
+    }
+
+    .sources ul { list-style: none; }
+
+    .sources li {
+      font-size: 0.76em;
+      line-height: 1.55;
+      padding-left: 1.4em;
+      text-indent: -1.4em;
+      margin-bottom: 1em;
+    }
+
+    .sources strong { font-weight: 500; color: var(--ink); }
+
+    .colophon {
+      font-size: 0.72em;
+      font-style: italic;
+      line-height: 1.55;
+      margin-top: 2.4em;
+    }
+
+    /* ---------- Responsive ---------- */
+
+    @media (min-width: 700px) {
+      body { font-size: 22px; padding: 0 32px; }
+      .text p:not(.stanza):not(.signature):not(.explicit) {
+        text-align: justify;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+      }
+    }
+
+    @media (min-width: 1000px) {
+      body { font-size: 24px; }
+    }
+
+    @media (min-width: 1120px) {
+      .gloss {
+        position: absolute;
+        right: calc(100% + 40px);
+        top: 0.3em;
+        width: 130px;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 6px;
+        margin: 0;
+        text-align: right;
+      }
+      .g-num { font-size: 1.5em; }
+      .g-title { font-size: 0.78em; line-height: 1.3; }
+    }
+
+    .text p { text-wrap: pretty; hanging-punctuation: first; }
+
+    @media print {
+      .running, .incipit { display: none; }
+      html, body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="running" aria-hidden="true">
+    <span class="rh-num"></span><span class="rh-title"></span>
+    <div class="rh-rule"><div class="rh-bar"></div></div>
+  </div>
+
+  <header class="frontispiece">
+    <div class="front-core">
+      <p class="imprint reveal r1">Wall Street Punk</p>
+      <h1 class="title reveal r2">The Store<br>Is the Message</h1>
+      <p class="genre reveal r3">A Manifesto</p>
+      <div class="ornament reveal r4" aria-hidden="true"><i></i></div>
+      <p class="extent reveal r4">In nine parts, between a proem and a coda.<br>Eight minutes of reading.</p>
+    </div>
+    <a class="incipit reveal r5" href="#proem">Incipit<span class="stem" aria-hidden="true"></span></a>
+  </header>
+
+  <main class="text">
+
+    <section class="proem" id="proem" data-part="Proem">
+      <p class="opening"><span class="lead">A store is an argument</span> about how buying should feel, and every element of it is a sentence in that argument: the button, the countdown, the recommendation, the price, the clause that governs what happens when someone changes their mind. Most stores are built to be looked through, like a clean window onto the thing you want. That transparency is the most expensive design in the building.</p>
+
+      <p>Online commerce has acquired a grammar: a settled set of conventions deciding what a price is permitted to mean, <a href="https://wallstreetwear.wallstreetpunk.co">what a garment is made to say about the body wearing it</a>, and what becomes of an object once someone has changed their mind. The grammar has been in place long enough to read as nature. It was written recently, by people with names and quarterly targets, against alternatives that were considered and dropped.</p>
+
+      <p>We work with the store as a medium. Its buttons, categories, prices and promises are the material. What follows is the reading.</p>
+    </section>
+
+    <section class="part" data-part="Smoothness" data-num="I">
+      <h2 class="gloss"><span class="g-num">I</span><span class="g-title">Smoothness</span></h2>
+      <p><strong>The smoothness is a weapon.</strong> An exit longer than the entrance. A prompt that recasts declining a purchase as a defect of character. A box already ticked, reading silence as assent. A countdown with nothing behind it, a scarcity with no inventory, a notice that others are watching this page. Each of these carries a name, a documented history, and a measurable effect on conversion, which is to say each was tested on people before it was used on you.</p>
+
+      <p>The deeper work of an interface happens beneath the level of the trick. An interface is a jurisdiction: a small territory where the terms of an encounter are set unilaterally, and where the frontier between persuasion and compulsion becomes impossible to locate from the inside. It presents choices while also producing the chooser, apportioning capacities, deciding what can be compared, reversed, postponed, read before agreeing to, and quietly withholding the remainder. Consider the vocabulary the discipline has adopted for a person who pauses: friction, leakage, drop-off, abandonment. Hesitation enters the model as a fault to be engineered away. Two thousand years of thinking about deliberation, recoded as a defect in the funnel.</p>
+    </section>
+
+    <section class="part" data-part="Price" data-num="II">
+      <h2 class="gloss"><span class="g-num">II</span><span class="g-title">Price</span></h2>
+      <p><strong>The price was the one public fact in the market.</strong> For as long as markets have justified themselves they have done so by pointing at it: the single figure visible to every party at once, the shared coordinate that licensed the claim of discovery. What the screen makes possible is a figure composed for one buyer, assembled from the device, the browsing history, the length of the hesitation, the record of what a person has previously accepted. The capacity arrives well ahead of its general use, which is the ordinary sequence with such things. Two people can open the same page, receive different numbers, and have no procedure for finding out. The word outlives the practice it named: <em>discovery</em>, still printed on a mechanism that proceeds increasingly without it. The same apparatus lets rival sellers observe one another continuously and converge without speaking, producing agreement with no meeting, no members, and nothing to prosecute. A figure performs best when it arrives with its reasoning stripped off.</p>
+    </section>
+
+    <section class="part" data-part="Extraction" data-num="III">
+      <h2 class="gloss"><span class="g-num">III</span><span class="g-title">Extraction</span></h2>
+      <p><strong>Extraction precedes the transaction.</strong> The scroll arrested, the cursor circling, the basket abandoned at the third screen: a gesture online is available as raw material, rendered into behavioural data, refined into predictions, and sold into markets that wager on what a person will do now, soon, and later. Few shops run the whole of this themselves. A shop sits inside an ecosystem that does, and the distinction matters more to the lawyers than to the person on the other side of the glass. Since the most reliable method of forecasting a behaviour is to produce it, the screen that sells also sorts, defers, repeats, and returns. Power of this shape works without commands. It arranges the conditions under which a person arrives at a preference and experiences that preference as their own. Consent is the wrong instrument against it: one cannot consent to a process whose product did not exist at the moment the terms were signed.</p>
+    </section>
+
+    <section class="part" data-part="Signs" data-num="IV">
+      <h2 class="gloss"><span class="g-num">IV</span><span class="g-title">Signs</span></h2>
+      <p><a href="https://wallstreetwear.wallstreetpunk.co"><strong>A garment keeps a body warm and says something about the body it warms.</strong></a> The second function has become the expensive one. An object is acquired for what it states: a position within a code, a coordinate of who one is against who one is not. <a href="https://wallstreetwear.wallstreetpunk.co">The commodity became a language, and fluency arrived without anyone's consent</a>, so that what gets consumed is the difference between objects alongside the objects. Carried far enough, a garment approaches pure sign, the cloth retained as pretext. We are interested in the moment an object stops describing itself and begins describing its buyer. The system's real accomplishment lies in presenting differentiation as individuation, selling a position in a grid as the discovery of a self, and collecting gratitude for it.</p>
+    </section>
+
+    <section class="part" data-part="Trust" data-num="V">
+      <h2 class="gloss"><span class="g-num">V</span><span class="g-title">Trust</span></h2>
+      <p><strong>Trust became a manufactured input.</strong> The other buyers were the last voice in the room with no stake: the star rating, the review, the assurance that strangers had gone first and survived. Regulators have now had to name and prohibit a catalogue of practices, among them purchased sentiment, insiders writing as strangers, company-owned sites presenting themselves as independent, the burial of unfavourable accounts, and bought indicators of influence. Read the catalogue as an inventory of what the architecture permits. What gets counterfeited here exceeds a rating. It is the stranger, the figure whose disinterest was the entire value of the testimony. A system built to deliver the unmediated experience of other people is also a system capable of producing that experience on demand.</p>
+    </section>
+
+    <section class="part" data-part="Effort" data-num="VI">
+      <h2 class="gloss"><span class="g-num">VI</span><span class="g-title">Effort</span></h2>
+      <p><strong>Effort obeys conservation.</strong> It leaves the screen and arrives in a body. Behind the button stands a building where a person is timed against a quota, tracked between entrances, pressed to move faster, measuring a trip to the bathroom against a rate that falls while they are away. The published investigations into these conditions differ in method and agree in direction. Frictionlessness is a distribution question wearing the costume of a technical achievement: every promise of the <em>effortless</em> is a transfer of effort onto a body the customer is structurally prevented from seeing. Free shipping arrives fully costed. The invoice is settled in vertebrae.</p>
+    </section>
+
+    <section class="part" data-part="Returns" data-num="VII">
+      <h2 class="gloss"><span class="g-num">VII</span><span class="g-title">Returns</span></h2>
+      <p><strong>What goes back does not go home.</strong> The return is a genuine protection, the remedy for a mistake or a misrepresentation, and simultaneously an industrial route whose destination the buyer never sees. Goods sent back are resold, repaired, recycled, or destroyed, and the selection among these outcomes is made on cost. Wherever inspection, cleaning and restocking exceed what the object is worth, destruction becomes the rational choice, which is a statement about the object's value rather than about anybody's malice. Order three and keep one, and two objects enter a process that the word <em>back</em> conceals. Overproduction operates here as a precondition. Abundant choice requires abundant surplus, surplus requires disposal, and disposal is priced in from the first day.</p>
+    </section>
+
+    <section class="part" data-part="Attention" data-num="VIII">
+      <h2 class="gloss"><span class="g-num">VIII</span><span class="g-title">Attention</span></h2>
+      <p><strong>Attention was the last commons.</strong> Where information runs to abundance, scarcity migrates to the one finite holding: a person's gaze, their minutes, their capacity to notice. An industry a century in the making exists to enclose that capacity and lease it back, arriving as free service, free scrolling, free diversion, free always, on the single condition that the person be the commodity. Enclosure is the precise word and it carries its history with it: a common resource fenced, retitled, and rented to the people it was taken from. To reclaim attention is the elementary political act available to someone whose only remaining property is their own noticing.</p>
+    </section>
+
+    <section class="part" data-part="Government" data-num="IX">
+      <h2 class="gloss"><span class="g-num">IX</span><span class="g-title">Government</span></h2>
+      <p><strong>Past a certain depth, a firm becomes a government.</strong> A marketplace can also operate the warehouses, sell goods competing with its tenants, sell those tenants their visibility, set the fees, and decide which result appears first. It settles into the position underneath the other stores, becoming infrastructure that every competitor must rent in order to compete. Low prices were taught to us as a windfall; they function as the opening move of an enclosure. Access acquires a price and visibility acquires another, and what presents itself as a shelf is a rule. These are governmental functions, exercised without election, appeal, or jurisdiction.</p>
+    </section>
+
+    <section class="coda" data-part="Coda">
+      <div class="ornament" aria-hidden="true"><i></i></div>
+
+      <p>All of this proceeds without a conspiracy. Defaults do the work: arrangements that succeeded once, propagated, and hardened into the way it is done. Power of the contemporary kind operates exactly here, past the point where it needs to command. It lays the path of least resistance and lets everyone walk it, then calls the walking a choice. The same fact leaves the arrangements contingent. They were selected by people, for reasons, against alternatives, and nothing about them is load-bearing in the universe.</p>
+
+      <p>No exterior position remains available. The apparatus absorbed its own outside some time ago; every critique of online commerce now travels through online commerce, and anyone advertising clean hands is running a promotion. What stays open is the question of legibility: whether a mechanism can be read by the person it operates on.</p>
+
+      <p class="stanza">
+        <span>A price can conceal its rule or publish it.</span>
+        <span>A garment can pass as cloth or declare itself a sign.</span>
+        <span>A return can be a loophole or the object of attention.</span>
+        <span>A store can be built to vanish or built to be read.</span>
+      </p>
+
+      <p class="noindent">The second option in each pair has a price, paid in margin, in conversion, in the hesitation that the whole discipline is organised to remove. That price is most of the reason it is taken so rarely, and pretending otherwise would be the same trick, differently dressed.</p>
+
+      <p>So we use the machinery we examine. Sometimes a function is altered. Sometimes a mechanism is left intact long enough to turn strange. An exposed device continues to work on the person watching it work, and making something legible changes what can be said about it rather than what it does. Nothing here is an exit.</p>
+
+      <p class="signature">
+        <span class="name">Wall Street Punk</span>
+        <span class="admission">We work inside this. So does everyone else.<br>We would rather say so.</span>
+      </p>
+
+      <p class="explicit">Explicit</p>
+    </section>
+
+  </main>
+
+  <section class="sources" data-part="Sources">
+    <h2>Sources</h2>
+    <p class="preamble">The text above argues; the work below is what it argues from. Figures, jurisdictions and methods live here, where they can be checked.</p>
+    <ul>
+      <li><strong>Harry Brignull</strong>, <em>Deceptive Patterns: Exposing the Tricks Tech Companies Use to Control You</em> (2023); deceptive.design, formerly darkpatterns.org (2010 onward). On manipulative interface design and its taxonomy.</li>
+      <li><strong>European Commission</strong>, Consumer Protection Cooperation network sweep of online shops (January 2023). Manipulative practices from the three categories examined were identified in 148 of the 399 shops screened, a finding about those shops rather than about online retail as a whole.</li>
+      <li><strong>Branden Hookway</strong>, <em>Interface</em> (MIT Press, 2014). On the interface as a form of relation rather than a technology, a site of contestation between the political and the technological, and its part in subject formation, agency and control.</li>
+      <li><strong>Richard H. Thaler and Cass R. Sunstein</strong>, <em>Nudge: Improving Decisions About Health, Wealth, and Happiness</em> (Yale University Press, 2008). On choice architecture and the impossibility of a neutral arrangement of options.</li>
+      <li><strong>Ariel Ezrachi and Maurice E. Stucke</strong>, <em>Virtual Competition: The Promise and Perils of the Algorithm-Driven Economy</em> (Harvard University Press, 2016). On behavioural discrimination, personalised pricing, and algorithmic tacit collusion between competitors.</li>
+      <li><strong>European Commission</strong>, <em>Consumer market study on online market segmentation through personalised pricing/offers</em> (2018). Personalisation of the order in which offers were presented was found on a majority of the sites examined; differences in price for identical products were found in a small minority of cases, with the study noting the methodological difficulty of detecting the practice. The capacity described in the text is documented; its general application is not.</li>
+      <li><strong>Shoshana Zuboff</strong>, <em>The Age of Surveillance Capitalism: The Fight for a Human Future at the New Frontier of Power</em> (2019). On behavioural surplus, prediction products, behavioural futures markets, and instrumentarian power. The model is properly ascribed to an advertising and platform ecosystem rather than to every shop trading inside it.</li>
+      <li><strong>Jean Baudrillard</strong>, <em>The Consumer Society</em> (1970) and <em>For a Critique of the Political Economy of the Sign</em> (1972). On sign-value, consumption as social differentiation, and the object as a position within a code.</li>
+      <li><strong>U.S. Federal Trade Commission</strong>, Trade Regulation Rule on the Use of Consumer Reviews and Testimonials, 16 CFR Part 465, announced 14 August 2024, effective 21 October 2024. Prohibiting the sale and purchase of fake reviews, paid sentiment, undisclosed insider reviews, company-controlled "independent" review sites, review suppression, and purchased indicators of social media influence. A prohibition establishes that a practice was worth prohibiting, not how widespread it is.</li>
+      <li><strong>National Employment Law Project</strong> (May 2024) on the share of United States warehouse employment held by a single firm; <strong>Strategic Organizing Center</strong> (May 2025, on 2024 data) on comparative serious-injury rates in that firm's warehouses; <strong>Oxfam America</strong>, <em>The Lives of Amazon Warehouse Workers</em> (2024); <strong>James Bloodworth</strong>, <em>Hired: Six Months Undercover in Low-Wage Britain</em> (2018); <strong>U.S. Department of Labor / OSHA</strong> citations (2022–2023). The firm concerned disputes these readings and reports improvement in its own injury rates.</li>
+      <li><strong>Optoro</strong> returns data, via CleanHub, <em>The Environmental Impact of Returning Online Products</em> (2022–2024), on the volume of returned goods landfilled annually. An industry estimate, cited as such. Textile accumulations in the Atacama and comparable sites are attributed by <strong>UNEP</strong> largely to imported second-hand clothing and industrial textile surplus, which share an economy of overproduction with e-commerce returns while travelling a different supply chain.</li>
+      <li><strong>Tim Wu</strong>, <em>The Attention Merchants: The Epic Scramble to Get Inside Our Heads</em> (2016); <strong>Jenny Odell</strong>, <em>How to Do Nothing: Resisting the Attention Economy</em> (2019). On attention as the scarce commodity and the economy built to harvest it.</li>
+      <li><strong>Lina M. Khan</strong>, "Amazon's Antitrust Paradox," <em>Yale Law Journal</em> 126 (2017). On predatory pricing, platform dominance, and the firm as essential infrastructure.</li>
+      <li><strong>Marshall McLuhan</strong>, <em>Understanding Media: The Extensions of Man</em> (1964).</li>
+    </ul>
+    <p class="colophon">Set in Cormorant and EB Garamond, both descended from the types of Claude Garamond. This page is a single static file. It sets no cookies, loads no analytics, and requests nothing from a third party except its typefaces. Stated as a fact about the page, not as a claim about anybody's virtue.</p>
+  </section>
+
+  <script>
+    (function () {
+      var rh = document.querySelector('.running');
+      var num = rh.querySelector('.rh-num');
+      var title = rh.querySelector('.rh-title');
+      var bar = rh.querySelector('.rh-bar');
+      var front = document.querySelector('.frontispiece');
+      var text = document.querySelector('.text');
+      var parts = Array.prototype.slice.call(document.querySelectorAll('[data-part]'));
+      var current = null;
+      var ticking = false;
+
+      function top(el) { return el.getBoundingClientRect().top + window.pageYOffset; }
+
+      function update() {
+        var y = window.pageYOffset;
+        var vh = window.innerHeight;
+        var probe = y + vh * 0.32;
+        var active = null;
+        for (var i = 0; i < parts.length; i++) {
+          if (top(parts[i]) <= probe) active = parts[i];
+        }
+        var pastFront = probe > top(front) + front.offsetHeight;
+        rh.classList.toggle('on', !!(pastFront && active));
+
+        if (active && active !== current) {
+          current = active;
+          num.textContent = active.getAttribute('data-num') || '';
+          title.textContent = active.getAttribute('data-part');
+          rh.classList.toggle('no-num', !active.getAttribute('data-num'));
+        }
+
+        var start = top(text);
+        var span = text.offsetHeight - vh;
+        var p = span > 0 ? (y - start + vh * 0.32) / span : 0;
+        p = Math.max(0, Math.min(1, p));
+        bar.style.transform = 'scaleX(' + p + ')';
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(function () { update(); ticking = false; });
+        }
+      }, { passive: true });
+      window.addEventListener('resize', update);
+      window.addEventListener('load', update);
+      update();
+    })();
+  </script>
+
+</body>
+</html>
